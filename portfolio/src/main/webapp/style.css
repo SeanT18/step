@@ -4,10 +4,15 @@
   width: 650px;
 }
 
-
 #header {
     padding: 30px;
     background: #00CED1;
     text-align: center;
+}
+
+#links {
+    padding-right: 150px;
+    padding-left: 150px;
+    display: inline-block;
 }
 

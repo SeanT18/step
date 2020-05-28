@@ -26,19 +26,6 @@ footer {
   color: white;
 }
 
-  leftSide{
-  float: left;
-  width: 30%;
-  height: 300px; /* only for demonstration, should be removed */
-  background: #ccc;
-  padding: 20px;
+#imageFloat {
+    float: left;
 }
-
-rightSide {
-  float: left;
-  padding: 20px;
-  width: 70%;
-  background-color: #f1f1f1;
-  height: 300px; /* only for demonstration, should be removed */
-}
-

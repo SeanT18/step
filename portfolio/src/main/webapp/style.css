@@ -11,7 +11,7 @@
 }
 
 #links {
-    padding: 20px;
+    padding: 25px;
     display: inline-block;
 }
 
@@ -26,16 +26,6 @@ footer {
   color: white;
 }
 
-#imageFloat {
-    float: left;
-    display: block;
-    overflow: hidden;
+#padding {
     padding: 10px;
 }
-
-
-#container {
-    width: 600;
-
-}
-

@@ -27,5 +27,8 @@ function addRandomFact() {
   factContainer.innerText = fact;
 }
 
-
-
+function getHelloArrowFunctions() {
+  fetch('/data').then(response => response.text()).then((quote) => {
+    document.getElementById('hello-container').innerHTML = quote;
+  });
+}

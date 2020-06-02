@@ -19,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -29,15 +30,25 @@ public class DataServlet extends HttpServlet {
     response.setContentType("text/html;");
     response.getWriter().println("<h1>Hello Sean Tisdale!</h1>");
 
-    Data data = new Data(messages)
+    
+    String json = messages();
+
+   response.setContentType("text/html");
+    response.getWriter().println(json);
+
   }
-}
 
 
-public string messages() {
+
+    public String messages() {
     ArrayList<String> message = new ArrayList<String>();
     message.add("This is my first time using Json");
     message.add("I wonder if a guy named Jason made Json");
     message.add("I love pie");
-       
+        return message.get(0);
+  }
+
 }
+
+
+

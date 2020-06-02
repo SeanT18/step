@@ -26,12 +26,21 @@ function addRandomFact() {
   const factContainer = document.getElementById('fact-container');
   factContainer.innerText = fact;
 }
+
+function getHello() {
+  fetch('/data').then(response => response.text())
+  .then((quote) => {
+      document.getElementById('hello-container').innerHTML = quote;
+  });
+}
+
   async function addMessage() {
   const response = await fetch('/data');
   const message = await response.text();
   document.getElementById('message-container').innerHTML = message;
 
 }
+
 
 
 

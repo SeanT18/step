@@ -31,15 +31,13 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println("<h1>Hello Sean Tisdale!</h1>");
 
     
-    String json = messages();
-
+String message = messages();
+   // Converts message to JSON string
    response.setContentType("text/html");
-    response.getWriter().println(json);
+   response.getWriter().println(message);
 
   }
-
-
-
+    // Will have messages that are presented on the screen
     public String messages() {
     ArrayList<String> message = new ArrayList<String>();
     message.add("This is my first time using Json");

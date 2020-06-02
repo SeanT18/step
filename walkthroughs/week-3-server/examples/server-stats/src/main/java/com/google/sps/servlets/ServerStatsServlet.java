@@ -36,9 +36,9 @@ public final class ServerStatsServlet extends HttpServlet {
     long usedMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 
     // Convert the server stats to JSON
-    
-ServerStats serverStats = new ServerStats(startTime, currentTime, maxMemory, usedMemory);
+    ServerStats serverStats = new ServerStats(startTime, currentTime, maxMemory, usedMemory);
     String json = convertToJson(serverStats);
+
     // Send the JSON as the response
     response.setContentType("application/json;");
     response.getWriter().println(json);

@@ -14,7 +14,8 @@
 
 package com.google.sps.servlets;
 /**
-*
+* Creating a servlet that stores comments as a JSON list and use JavaScript that builds UI from
+* that data. 
 **/
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;

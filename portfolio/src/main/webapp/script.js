@@ -30,6 +30,6 @@ function addRandomFact() {
 function getHello() {
   fetch('/data').then(response => response.text())
   .then((quote) => {
-    document.getElementById('hello-container').innerHTML = quote;
+      document.getElementById('hello-container').innerHTML = quote;
   });
 }

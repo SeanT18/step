@@ -31,19 +31,18 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-   // Converts message to JSON string
+    // Converts message to JSON string
     String message = messageGson(messages());
     response.setContentType("application/json;");
     response.getWriter().println(message);
   }
-    // Will have messages that are presented on the screen
 
+// Will have messages that are presented on the screen
 private ArrayList<String> messages() {
-    String realMes = "";
     ArrayList<String> message = new ArrayList<String>();
-      message.add("This is my first time using Json");
-      message.add("I wonder if a guy named Jason made Json");
-      message.add("I love pie");
+    message.add("This is my first time using Json");
+    message.add("I wonder if a guy named Jason made Json");
+    message.add("I love pie");
     return message;
   }
 

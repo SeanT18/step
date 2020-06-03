@@ -37,16 +37,16 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println(message);
   }
 
-// Will have messages that are presented on the screen
-private ArrayList<String> messages() {
+  // Will have messages that are presented on the screen
+  private ArrayList<String> messages() {
     ArrayList<String> message = new ArrayList<String>();
     message.add("This is my first time using Json");
     message.add("I wonder if a guy named Jason made Json");
     message.add("I love pie");
     return message;
   }
-
-private static String messageGson(ArrayList<String>  message ) {
+  // JSON messages to string  
+  private static String messageGson(ArrayList<String>  message ) {
     Gson gson = new Gson();
     String json = gson.toJson(message);
     return json;

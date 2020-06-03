@@ -26,10 +26,10 @@ function addRandomFact() {
   const factContainer = document.getElementById('fact-container');
   factContainer.innerText = fact;
 }
-
-function getHello() {
+// recieves messages to be presented to the user
+function addMessage() {
   fetch('/data').then(response => response.text())
-  .then((quote) => {
-      document.getElementById('hello-container').innerHTML = quote;
+  .then((message) => {
+      document.getElementById('message-container').innerHTML = message;
   });
 }

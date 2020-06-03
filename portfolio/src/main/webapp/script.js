@@ -26,8 +26,8 @@ function addRandomFact() {
   const factContainer = document.getElementById('fact-container');
   factContainer.innerText = fact;
 }
-  
-  function addMessage() {
+// recieves messages to be presented to the user
+function addMessage() {
   fetch('/data').then(response => response.text())
   .then((message) => {
       document.getElementById('message-container').innerHTML = message;

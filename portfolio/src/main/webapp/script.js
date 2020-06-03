@@ -26,6 +26,7 @@ function addRandomFact() {
   const factContainer = document.getElementById('fact-container');
   factContainer.innerText = fact;
 }
+
 function addMessage() {
   fetch('/data').then(response => response.text())
   .then((message) => {

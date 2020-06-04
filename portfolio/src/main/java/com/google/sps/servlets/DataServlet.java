@@ -37,24 +37,22 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println(comment);
   }
 
-    @Override
+  @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // sends user input to doGet
     doGet(request,response);
     response.sendRedirect("/index.html");
-
   }
 
     // Takes user comments and adds them to list
-    private ArrayList<String> messages(HttpServletRequest request) {
-      String comment = request.getParameter("comments");
-      ArrayList<String> message = new ArrayList<String>();
-       if(comment == null) {
-           return message;
-       }
-          message.add(comment);
-       
+  private ArrayList<String> messages(HttpServletRequest request) {
+    String comment = request.getParameter("comments");
+    ArrayList<String> message = new ArrayList<String>();
+    if (comment == null) {
       return message;
+    }
+    message.add(comment);
+    return message;
   }
 
   // JSON messages to string  

@@ -39,12 +39,8 @@ public class DataServlet extends HttpServlet {
 
     @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
- //   String comment = messageGson(messages(request));
-   // response.setContentType("application/json;");
-    //response.getWriter().println(comment);
-        doGet(request,response);
-
+    // sends user input to doGet
+    doGet(request,response);
     response.sendRedirect("/index.html");
 
   }

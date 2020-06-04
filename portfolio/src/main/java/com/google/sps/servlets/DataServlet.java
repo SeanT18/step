@@ -29,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 
+
+
 /**
 * Creating a servlet that stores comments as a JSON list and use JavaScript that builds UI from
 * that data. 

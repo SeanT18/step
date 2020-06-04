@@ -38,35 +38,39 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+ // adds comments to datastore 
+    String comment = request.getParameter("comments");
+    Entity taskEntity = new Entity("Task");
+    taskEntity.setProperty("comments", comment);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(taskEntity);
+
+    // takes query and puts all data into an arraylist.
+    ArrayList<String> commentList = new ArrayList<String>();
+    Query query = new Query("Task");
+    PreparedQuery results = datastore.prepare(query);
+    for (Entity entity : results.asIterable()) {
+      String commentEntity = (String) entity.getProperty("comments");
+      commentList.add(commentEntity);
+    }
+      
     // Converts message to JSON string
-    String comment = messageGson(messages(request));
+    String comments = messageGson(messages(commentList));
     response.setContentType("application/json;");
-    response.getWriter().println(comment);
+    response.getWriter().println(comments);
   }
 
     @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // sends user input to doGet
     doGet(request,response);
-
-    // adds comments to datastore 
-    String comment = request.getParameter("comments");
-    Entity taskEntity = new Entity("Task");
-    taskEntity.setProperty("comments", comment);
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(taskEntity);
     response.sendRedirect("/index.html");
   }
 
     // Takes user comments and adds them to list
-    private ArrayList<String> messages(HttpServletRequest request) {
-      String comment = request.getParameter("comments");
-      ArrayList<String> message = new ArrayList<String>();
-       if(comment == null) {
-           return message;
-       }
-        message.add(comment);
-      return message;
+    private ArrayList<String> messages(ArrayList<String> comment) {
+      return comment;
   }
 
   // JSON messages to string  

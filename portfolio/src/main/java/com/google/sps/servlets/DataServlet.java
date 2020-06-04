@@ -32,29 +32,32 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Converts message to JSON string
-    String message = request.getParameter("comments");  
+    String comment = messageGson(messages(request));
     response.setContentType("application/json;");
-    response.getWriter().println(message);
+    response.getWriter().println(comment);
   }
 
     @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String comment = request.getParameter("comments");  
-    messages(comment);
+    
+ //   String comment = messageGson(messages(request));
+   // response.setContentType("application/json;");
+    //response.getWriter().println(comment);
+        doGet(request,response);
+
     response.sendRedirect("/index.html");
+
   }
 
     // Takes user comments and adds them to list
-    public ArrayList<String> messages(HttpServletRequest request) {
+    private ArrayList<String> messages(HttpServletRequest request) {
+      String comment = request.getParameter("comments");
       ArrayList<String> message = new ArrayList<String>();
-      message.add("This is my first time using Json");
-      message.add("I wonder if a guy named Jason made Json");
-      message.add("I love pie");
-      if(comment == null) {
-          return message;
-      } else {
+       if(comment == null) {
+           return message;
+       }
           message.add(comment);
-      }
+       
       return message;
   }
 

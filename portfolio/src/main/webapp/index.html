@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="addMessage()">
     <header>
     <div id ="header">
         <h1 style="text-align:center"> Sean Tisdale Portfolio </h1>
@@ -33,11 +33,15 @@
             <button onclick="addRandomFact()">Facts</button>
             <div id="fact-container"></div>
             <br>
-
             <p>Click here to get random message:</p>
             <button onclick="addMessage()">Messages</button>
             <div id="message-container"></div>
-
+            <br>
+            <form action="/data" method="POST">
+            <p> Leave a comment!</p><br>
+            <input type="text" name="comments">
+            <input type="submit" value="Submit"/>
+            </form>
         </div>
   </body>
   <br>

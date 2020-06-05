@@ -44,7 +44,7 @@ public class DataServlet extends HttpServlet {
     response.sendRedirect("/index.html");
   }
 
-    // Takes user comments and adds them to list
+  // Takes user comments and adds them to list
   private ArrayList<String> messages(HttpServletRequest request) {
     String comment = request.getParameter("comments");
     ArrayList<String> message = new ArrayList<String>();

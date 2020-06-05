@@ -15,12 +15,21 @@
 package com.google.sps.servlets;
 
 import java.io.IOException;
+
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import java.util.ArrayList;
+
+
 
 /**
 * Creating a servlet that stores comments as a JSON list and use JavaScript that builds UI from
@@ -31,10 +40,27 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+ // adds comments to datastore 
+    String comment = request.getParameter("comments");
+    Entity taskEntity = new Entity("Task");
+    taskEntity.setProperty("comments", comment);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(taskEntity);
+
+    // takes query and puts all data into an arraylist.
+    ArrayList<String> commentList = new ArrayList<String>();
+    Query query = new Query("Task");
+    PreparedQuery results = datastore.prepare(query);
+    for (Entity entity : results.asIterable()) {
+      String commentEntity = (String) entity.getProperty("comments");
+      commentList.add(commentEntity);
+    }
+      
     // Converts message to JSON string
-    String comment = messageGson(messages(request));
+    String comments = messageGson(messages(commentList));
     response.setContentType("application/json;");
-    response.getWriter().println(comment);
+    response.getWriter().println(comments);
   }
 
   @Override
@@ -44,15 +70,10 @@ public class DataServlet extends HttpServlet {
     response.sendRedirect("/index.html");
   }
 
-  // Takes user comments and adds them to list
-  private ArrayList<String> messages(HttpServletRequest request) {
-    String comment = request.getParameter("comments");
-    ArrayList<String> message = new ArrayList<String>();
-    if (comment == null) {
-      return message;
-    }
-    message.add(comment);
-    return message;
+    // Takes user comments and adds them to list
+    private ArrayList<String> messages(ArrayList<String> comment) {
+      return comment;
+
   }
 
   // JSON messages to string  

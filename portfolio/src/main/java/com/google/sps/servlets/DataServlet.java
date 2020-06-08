@@ -41,7 +41,7 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
- // adds comments to datastore 
+    // adds comments to datastore 
     String comment = request.getParameter("comments");
     Entity taskEntity = new Entity("Task");
     taskEntity.setProperty("comments", comment);
@@ -56,15 +56,18 @@ public class DataServlet extends HttpServlet {
       String commentEntity = (String) entity.getProperty("comments");
       commentList.add(commentEntity);
     }
-      
+
+
+    String commentNumString = request.getParameter("numComments");
+    System.out.println(commentNumString);
+    int commentNum = numComments(commentNumString); 
+
     // Converts message to JSON string
-        response.setContentType("application/json;");
-    for(int i = 0; i < 2; i++) {
+    response.setContentType("application/json;");
+    for(int i = 0; i < commentNum; i++) {
        comment = messageGson(commentList.get(i));
        response.getWriter().println(comment);
     }
-
-   
   }
 
     @Override
@@ -84,5 +87,18 @@ public class DataServlet extends HttpServlet {
     Gson gson = new Gson();
     String json = gson.toJson(message);
     return json;
+  }
+
+  private int numComments(String number) {
+      int commentNumber;
+      try {
+        commentNumber = Integer.parseInt(number);
+       } catch (NumberFormatException e) {
+      System.err.println("Could not convert to int: " + number);
+      return -1;
+    }
+
+    return commentNumber;
+    
   }
 }

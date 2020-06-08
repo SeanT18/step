@@ -58,9 +58,13 @@ public class DataServlet extends HttpServlet {
     }
       
     // Converts message to JSON string
-    String comments = messageGson(messages(commentList));
-    response.setContentType("application/json;");
-    response.getWriter().println(comments);
+        response.setContentType("application/json;");
+    for(int i = 0; i < 2; i++) {
+       comment = messageGson(commentList.get(i));
+       response.getWriter().println(comment);
+    }
+
+   
   }
 
     @Override
@@ -71,12 +75,12 @@ public class DataServlet extends HttpServlet {
   }
 
     // Takes user comments and adds them to list
-    private ArrayList<String> messages(ArrayList<String> comment) {
+    private String messages(String comment) {
       return comment;
   }
 
   // JSON messages to string  
-  private static String messageGson(ArrayList<String>  message ) {
+  private static String messageGson(String  message ) {
     Gson gson = new Gson();
     String json = gson.toJson(message);
     return json;

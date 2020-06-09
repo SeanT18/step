@@ -64,12 +64,12 @@ public class DataServlet extends HttpServlet {
     // Converts message to JSON string
     response.setContentType("application/json;");
     for(int i = 0; i < commentNum; i++) {
-        if(commentNum > commentList.size()) {
-            response.getWriter().println("Not enough comments");
-            break;
-        }
-          comment = messageGson(commentList.get(i));
-          response.getWriter().println(comment);
+      if(commentNum > commentList.size()) {
+        response.getWriter().println("Not enough comments");
+      break;
+      }
+      comment = messageGson(commentList.get(i));
+      response.getWriter().println(comment);
     }
   }
 
@@ -82,7 +82,6 @@ public class DataServlet extends HttpServlet {
 
     // Takes user comments and adds them to list
     private String messages(String comment) {
-        
       return comment;
   }
 

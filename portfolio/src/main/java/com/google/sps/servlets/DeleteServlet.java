@@ -40,7 +40,7 @@ public class DeleteServlet extends HttpServlet {
     Query query = new Query("Task");
     PreparedQuery results = datastore.prepare(query);
     for (Entity entityComment : results.asIterable()) {
-    datastore.delete(entityComment.getKey());
+      datastore.delete(entityComment.getKey());
     }
   }
 

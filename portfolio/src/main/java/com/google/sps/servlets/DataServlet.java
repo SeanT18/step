@@ -57,7 +57,6 @@ public class DataServlet extends HttpServlet {
       commentList.add(commentEntity);
     }
 
-
     String commentNumString = request.getParameter("numComments");
     System.out.println(commentNumString);
     int commentNum = numComments(commentNumString); 
@@ -90,15 +89,13 @@ public class DataServlet extends HttpServlet {
   }
 
   private int numComments(String number) {
-      int commentNumber;
-      try {
-        commentNumber = Integer.parseInt(number);
-       } catch (NumberFormatException e) {
+    int commentNumber;
+    try {
+      commentNumber = Integer.parseInt(number);
+    } catch (NumberFormatException e) {
       System.err.println("Could not convert to int: " + number);
       return -1;
     }
-
     return commentNumber;
-    
   }
 }

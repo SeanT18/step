@@ -36,6 +36,14 @@ function addMessage() {
   });
 }
 
+function deleteData() {
+  const promise = fetch(new Request('/delete-data', {method: 'POST'}));
+  promise.then(() => {
+        addComments();
+    });
+}
+
+
 
 
 

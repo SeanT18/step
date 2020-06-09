@@ -58,7 +58,6 @@ public class DataServlet extends HttpServlet {
     }
 
     String commentNumString = request.getParameter("numComments");
-    System.out.println(commentNumString);
     int commentNum = numComments(commentNumString); 
 
     // Converts message to JSON string

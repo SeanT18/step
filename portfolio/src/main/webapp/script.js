@@ -31,8 +31,8 @@ function addRandomFact() {
 function addMessage() {
   var numComment = document.getElementById("numInput").value;
   fetch('/data?numComments=' + numComment).then(response => response.text())
-  .then((message) => {
-  document.getElementById('message-container').innerHTML = message;
+    .then((message) => {
+      document.getElementById('message-container').innerHTML = message;
   });
 }
 
@@ -42,9 +42,3 @@ function deleteData() {
   addComments();
     });
 }
-
-
-
-
-
-

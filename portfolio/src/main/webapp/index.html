@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload="addMssages()">
+  <body>
     <header>
     <div id ="header">
         <h1 style="text-align:center"> Sean Tisdale Portfolio </h1>
@@ -41,11 +41,11 @@
                 <p> Leave a comment!</p><br>
                 <input type="text" name="comments">
                 <input type="submit" value="Submit"/>
-                <br>
-                <input type="number" name="numComments" id="numInput" onchange="addMessage()">
-                <br>
                 <button onclick="deleteData()">Delete all comments</button>
+                <br>
             </form>
+            <input type="number" name="numComments" id="numInput">
+
         </div>
   </body>
   <br>

@@ -30,7 +30,7 @@ function addRandomFact() {
 // recieves messages to be presented to the user
 function addMessage() {
   var numComment = document.getElementById("numInput").value;
-  fetch('/data?numComments=' + numComment).then(response => response.text())
+  fetch('/data?' + 'numComments=' + numComment).then(response => response.text())
     .then((message) => {
       document.getElementById('message-container').innerHTML = message;
   });

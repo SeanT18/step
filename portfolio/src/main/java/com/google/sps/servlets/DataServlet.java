@@ -42,19 +42,24 @@ public class DataServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
     // adds comments to datastore 
+
     String comment = request.getParameter("comments");
-    Entity taskEntity = new Entity("Task");
-    taskEntity.setProperty("comments", comment);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(taskEntity);
+    if(comment != null && !comment.equals("")) {
+      Entity taskEntity = new Entity("Task");
+      taskEntity.setProperty("comments", comment);
+      datastore.put(taskEntity);
+    }
 
     // takes query and puts all data into an arraylist.
     ArrayList<String> commentList = new ArrayList<String>();
     Query query = new Query("Task");
     PreparedQuery results = datastore.prepare(query);
+
     for (Entity entity : results.asIterable()) {
       String commentEntity = (String) entity.getProperty("comments");
       commentList.add(commentEntity);
+
     }
 
     String commentNumString = request.getParameter("numComments");

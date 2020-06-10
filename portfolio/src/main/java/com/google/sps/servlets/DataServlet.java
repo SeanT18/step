@@ -71,13 +71,13 @@ public class DataServlet extends HttpServlet {
     }
   }
   
-    @Override
+  @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // sends user input to doGet
     doGet(request,response);
     response.sendRedirect("/index.html");
   }
-
+  
   // JSON messages to string  
   private static String messageGson(String message ) {
     Gson gson = new Gson();

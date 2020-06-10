@@ -72,7 +72,7 @@ public class DataServlet extends HttpServlet {
     }
   }
 
-    @Override
+  @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // sends user input to doGet
     doGet(request,response);
@@ -82,6 +82,7 @@ public class DataServlet extends HttpServlet {
     // Takes user comments and adds them to list
     private String messages(String comment) {
       return comment;
+
   }
 
   // JSON messages to string  

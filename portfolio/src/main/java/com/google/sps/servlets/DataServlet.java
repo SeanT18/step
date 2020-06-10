@@ -29,8 +29,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 
-
-
 /**
 * Creating a servlet that stores comments as a JSON list and use JavaScript that builds UI from
 * that data. 
@@ -51,7 +49,7 @@ public class DataServlet extends HttpServlet {
     }
     String commentNumString = request.getParameter("numComments");
     int commentNum = numComments(commentNumString); 
-
+    
     // takes query and puts all data into an arraylist.
     ArrayList<String> commentList = new ArrayList<String>();
     Query query = new Query("Task");
@@ -81,7 +79,7 @@ public class DataServlet extends HttpServlet {
   }
 
   // JSON messages to string  
-  private static String messageGson(String  message ) {
+  private static String messageGson(String message ) {
     Gson gson = new Gson();
     String json = gson.toJson(message);
     return json;

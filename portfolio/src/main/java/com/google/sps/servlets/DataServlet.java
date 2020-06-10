@@ -42,7 +42,6 @@ public class DataServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
     // adds comments to datastore 
-
     String comment = request.getParameter("comments");
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     if(comment != null && !comment.equals("")) {
@@ -50,43 +49,35 @@ public class DataServlet extends HttpServlet {
       taskEntity.setProperty("comments", comment);
       datastore.put(taskEntity);
     }
+    String commentNumString = request.getParameter("numComments");
+    int commentNum = numComments(commentNumString); 
 
     // takes query and puts all data into an arraylist.
     ArrayList<String> commentList = new ArrayList<String>();
     Query query = new Query("Task");
     PreparedQuery results = datastore.prepare(query);
 
-    for (Entity entity : results.asIterable()) {
-      String commentEntity = (String) entity.getProperty("comments");
-      commentList.add(commentEntity);
-
-    }
-
-    String commentNumString = request.getParameter("numComments");
-    int commentNum = numComments(commentNumString); 
-
-    // Converts message to JSON string
+    // prints data as requested by the amount of comments requested
+    int i = 0;
     response.setContentType("application/json;");
-    for(int i = 0; i < commentNum; i++) {
-      if(commentNum > commentList.size()) {
-        response.getWriter().println("Not enough comments");
-      break;
+    for (Entity entity : results.asIterable()) {
+      if(i < commentNum || commentNum > commentList.size()) {
+        String commentEntity = (String) entity.getProperty("comments");
+        commentList.add(commentEntity);
+        comment = messageGson(commentList.get(i));
+        response.getWriter().println(comment);
+        i++;
+      } else {
+        break;
       }
-      comment = messageGson(commentList.get(i));
-      response.getWriter().println(comment);
     }
   }
-
+  
     @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // sends user input to doGet
     doGet(request,response);
     response.sendRedirect("/index.html");
-  }
-
-    // Takes user comments and adds them to list
-    private String messages(String comment) {
-      return comment;
   }
 
   // JSON messages to string  
@@ -96,6 +87,7 @@ public class DataServlet extends HttpServlet {
     return json;
   }
 
+  // converts the number to an int
   private int numComments(String number) {
     int commentNumber;
     try {

@@ -42,3 +42,10 @@ function addMessage() {
       addComments();
     });
 }
+
+function userLogin() {
+  fetch('/login').then(response => response.text())
+  .then((message) => {
+    document.getElementById('login-container').innerHTML = message;
+  });
+}

@@ -30,16 +30,16 @@ function addRandomFact() {
 // recieves messages to be presented to the user
 function addMessage() {
   var numComment = document.getElementById("numInput").value;
-  fetch('/data?numComments=' + numComment).then(response => response.text())
+  fetch('/data?' + 'numComments=' + numComment).then(response => response.text())
   .then((message) => {
-  document.getElementById('message-container').innerHTML = message;
+    document.getElementById('message-container').innerHTML = message;
   });
 }
 
-function deleteData() {
-  const promise = fetch(new Request('/delete-data', {method: 'POST'}));
-  promise.then(() => {
-  addComments();
+  function deleteData() {
+    const promise = fetch(new Request('/delete-data', {method: 'POST'}));
+    promise.then(() => {
+      addComments();
     });
 }
 
@@ -98,4 +98,5 @@ const hibachiSpot = new google.maps.Marker({
           map.setCenter(bossyBeulah.getPosition());
         });
       }
+
 

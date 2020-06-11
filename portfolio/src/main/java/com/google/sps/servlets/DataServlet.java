@@ -16,6 +16,8 @@ package com.google.sps.servlets;
 
 import java.io.IOException;
 
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
@@ -38,6 +40,11 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    UserService userService = UserServiceFactory.getUserService();
+    if (userService.isUserLoggedIn()) {
+      String userEmail = userService.getCurrentUser().getEmail();
+      String urlToRedirectToAfterUserLogsOut = "/";
+      String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
     // adds comments to datastore 
     String comment = request.getParameter("comments");
@@ -45,6 +52,7 @@ public class DataServlet extends HttpServlet {
     if(comment != null && !comment.equals("")) {
       Entity taskEntity = new Entity("Task");
       taskEntity.setProperty("comments", comment);
+      taskEntity.setProperty("email", userEmail);
       datastore.put(taskEntity);
     }
     String commentNumString = request.getParameter("numComments");
@@ -61,14 +69,21 @@ public class DataServlet extends HttpServlet {
     for (Entity entity : results.asIterable()) {
       if(i < commentNum || commentNum > commentList.size()) {
         String commentEntity = (String) entity.getProperty("comments");
-        commentList.add(commentEntity);
+        String email = (String) entity.getProperty("email");
+        String fullcomment = email + ": " + commentEntity;
+        commentList.add(fullcomment);
         comment = messageGson(commentList.get(i));
-        response.getWriter().println(comment);
+        response.getWriter().println(fullcomment);
         i++;
       } else {
         break;
       }
     }
+   } else {
+      String urlToRedirectToAfterUserLogsIn = "/";
+      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a> first.</p>");
+  }
   }
   
   @Override

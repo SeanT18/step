@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload="addMessage()">
+  <body>
     <header>
     <div id ="header">
         <h1 style="text-align:center"> Sean Tisdale Portfolio </h1>
@@ -27,21 +27,25 @@
                 computer programmming intereted me the most. After completing the course I did research and saw all of the things someone could do with computer science which always made me interested 
                 because sticking to one thing forever was always boring to me.I am currently mostly interested in databases and AI in computer science. hobbies I have are playing games, watching anime or tv,
                 and eating. I am currently trying to get into cooking more but it's a process so I'll give it time before calling it a hobby. </p>
-
             <br>
             <p>Click here to get a random fact:</p>
             <button onclick="addRandomFact()">Facts</button>
             <div id="fact-container"></div>
             <br>
             <p>Click here to get your comments!:</p>
-            <button onclick="addMessage()">Messages</button>
+            <button onclick="addMessage()"> Show Messages</button>
             <div id="message-container"></div>
             <br>
             <form action="/data" method="POST">
-            <p> Leave a comment!</p><br>
-            <input type="text" name="comments">
-            <input type="submit" value="Submit"/>
+                <p> Leave a comment!</p><br>
+                <input type="text" name="comments">
+                <input type="submit" value="Submit"/>
+                <br>
+                <button onclick="deleteData()">Delete all comments</button>
+                <br>
             </form>
+            <p>Number of comments to show</p>
+            <input type="number" name="numComments" id="numInput" min="1" max="20">
         </div>
   </body>
   <br>

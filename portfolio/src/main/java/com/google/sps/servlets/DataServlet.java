@@ -29,8 +29,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 
-
-
 /**
 * Creating a servlet that stores comments as a JSON list and use JavaScript that builds UI from
 * that data. 
@@ -43,54 +41,50 @@ public class DataServlet extends HttpServlet {
 
     // adds comments to datastore 
     String comment = request.getParameter("comments");
-    Entity taskEntity = new Entity("Task");
-    taskEntity.setProperty("comments", comment);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(taskEntity);
-
+    if(comment != null && !comment.equals("")) {
+      Entity taskEntity = new Entity("Task");
+      taskEntity.setProperty("comments", comment);
+      datastore.put(taskEntity);
+    }
+    String commentNumString = request.getParameter("numComments");
+    int commentNum = numComments(commentNumString); 
+    
     // takes query and puts all data into an arraylist.
     ArrayList<String> commentList = new ArrayList<String>();
     Query query = new Query("Task");
     PreparedQuery results = datastore.prepare(query);
-    for (Entity entity : results.asIterable()) {
-      String commentEntity = (String) entity.getProperty("comments");
-      commentList.add(commentEntity);
-    }
 
-    String commentNumString = request.getParameter("numComments");
-    int commentNum = numComments(commentNumString); 
-
-    // Converts message to JSON string
+    // prints data as requested by the amount of comments requested
+    int i = 0;
     response.setContentType("application/json;");
-    for(int i = 0; i < commentNum; i++) {
-      if(commentNum > commentList.size()) {
-        response.getWriter().println("Not enough comments");
-      break;
+    for (Entity entity : results.asIterable()) {
+      if(i < commentNum || commentNum > commentList.size()) {
+        String commentEntity = (String) entity.getProperty("comments");
+        commentList.add(commentEntity);
+        comment = messageGson(commentList.get(i));
+        response.getWriter().println(comment);
+        i++;
+      } else {
+        break;
       }
-      comment = messageGson(commentList.get(i));
-      response.getWriter().println(comment);
     }
   }
 
-    @Override
+  @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // sends user input to doGet
     doGet(request,response);
     response.sendRedirect("/index.html");
   }
-
-    // Takes user comments and adds them to list
-    private String messages(String comment) {
-      return comment;
-  }
-
   // JSON messages to string  
-  private static String messageGson(String  message ) {
+  private static String messageGson(String message ) {
     Gson gson = new Gson();
     String json = gson.toJson(message);
     return json;
   }
 
+  // converts the number to an int
   private int numComments(String number) {
     int commentNumber;
     try {

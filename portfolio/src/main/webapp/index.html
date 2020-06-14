@@ -9,6 +9,7 @@
     <script src="script.js"></script>
   </head>
   <body onload="createMap();">
+
     <header>
     <div id ="header">
         <h1 style="text-align:center"> Sean Tisdale Portfolio </h1>
@@ -35,7 +36,7 @@
             <div id="fact-container"></div>
             <br>
             <p>Click here to get your comments!:</p>
-            <button onclick="addMessage()">Messages</button>
+            <button onclick="addMessage()"> Show Messages</button>
             <div id="message-container"></div>
             <br>
             <form action="/data" method="POST">
@@ -43,10 +44,11 @@
                 <input type="text" name="comments">
                 <input type="submit" value="Submit"/>
                 <br>
-                <input type="number" name="numComments" id="numInput" onchange="addMessage()">
-                <br>
                 <button onclick="deleteData()">Delete all comments</button>
+                <br>
             </form>
+            <p>Number of comments to show</p>
+            <input type="number" name="numComments" id="numInput" min="1" max="20">
             <div id="map"></div>
         </div>
   </body>

@@ -53,7 +53,6 @@ public class DataServlet extends HttpServlet {
     if(comment != null && !comment.equals("")) {
       Entity taskEntity = new Entity("userInfo");
       taskEntity.setProperty("comments", comment);
-      taskEntity.setProperty("email", userEmail);
       datastore.put(taskEntity);
     }
     String commentNumString = request.getParameter("numComments");
@@ -85,10 +84,14 @@ public class DataServlet extends HttpServlet {
       response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a> first.</p>");
   }
 }
-  
+  /** 
+  * TODO: There is a bug where nickname is reset to null after submitting comment. 
+  * Somewhere the nickname is being overwritten to null and I suspect to be here.
+  **/
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-          UserService userService = UserServiceFactory.getUserService();
+    // takes user nicknames and save to database with id  
+    UserService userService = UserServiceFactory.getUserService();
     String nickname = request.getParameter("nickname");
     String id = userService.getCurrentUser().getUserId();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -124,6 +127,7 @@ public class DataServlet extends HttpServlet {
 
    /** Returns the nickname of the user with id, or null if the user has not set a nickname. */
   private String getUserNickname(String id) {
+
   DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
   Query query =
         new Query("UserInfo")
@@ -131,7 +135,7 @@ public class DataServlet extends HttpServlet {
     PreparedQuery results = datastore.prepare(query);
     Entity entity = results.asSingleEntity();
     if (entity == null) {
-      return null;
+      return " ";
     }
     String nickname = (String) entity.getProperty("nickname");
     return nickname;

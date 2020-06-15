@@ -27,6 +27,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.logging.Logger;
 
 @WebServlet("/login")
 public class AuthenticationServlet extends HttpServlet {
@@ -46,8 +47,8 @@ public class AuthenticationServlet extends HttpServlet {
  
   // If user has not set a nickname, redirect to nickname page
     String nickname = getUserNickname(userService.getCurrentUser().getUserId());
-    System.out.println(nickname);
     if (nickname == null) {
+       // System.out.println("authentication servlet name null = " + nickname);
       response.sendRedirect("/nickname.html");
       return;
     }  
@@ -68,7 +69,7 @@ public class AuthenticationServlet extends HttpServlet {
     PreparedQuery results = datastore.prepare(query);
     Entity entity = results.asSingleEntity();
     if (entity == null) {
-      return "";
+      return " ";
     }
     String nickname = (String) entity.getProperty("nickname");
     return nickname;

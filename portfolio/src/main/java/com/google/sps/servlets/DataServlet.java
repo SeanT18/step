@@ -48,9 +48,10 @@ public class DataServlet extends HttpServlet {
 
     // adds comments to datastore 
     String comment = request.getParameter("comments");
+    String nickname = getUserNickname(userService.getCurrentUser().getUserId());
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     if(comment != null && !comment.equals("")) {
-      Entity taskEntity = new Entity("Task");
+      Entity taskEntity = new Entity("userInfo");
       taskEntity.setProperty("comments", comment);
       taskEntity.setProperty("email", userEmail);
       datastore.put(taskEntity);
@@ -60,7 +61,7 @@ public class DataServlet extends HttpServlet {
     
     // takes query and puts all data into an arraylist.
     ArrayList<String> commentList = new ArrayList<String>();
-    Query query = new Query("Task");
+    Query query = new Query("userInfo");
     PreparedQuery results = datastore.prepare(query);
 
     // prints data as requested by the amount of comments requested
@@ -69,8 +70,7 @@ public class DataServlet extends HttpServlet {
     for (Entity entity : results.asIterable()) {
       if(i < commentNum || commentNum > commentList.size()) {
         String commentEntity = (String) entity.getProperty("comments");
-        String email = (String) entity.getProperty("email");
-        String fullcomment = email + ": " + commentEntity;
+        String fullcomment = nickname + ": " + commentEntity + " ";
         commentList.add(fullcomment);
         comment = messageGson(commentList.get(i));
         response.getWriter().println(fullcomment);
@@ -84,15 +84,25 @@ public class DataServlet extends HttpServlet {
       String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
       response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a> first.</p>");
   }
-  }
+}
   
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+          UserService userService = UserServiceFactory.getUserService();
+    String nickname = request.getParameter("nickname");
+    String id = userService.getCurrentUser().getUserId();
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Entity entity = new Entity("UserInfo", id);
+    entity.setProperty("id", id);
+    entity.setProperty("nickname", nickname);
+    // The put() function automatically inserts new data or updates existing data based on ID
+    datastore.put(entity);
+
     // sends user input to doGet
     doGet(request,response);
     response.sendRedirect("/index.html");
   }
-  
+
   // JSON messages to string  
   private static String messageGson(String message ) {
     Gson gson = new Gson();
@@ -110,5 +120,20 @@ public class DataServlet extends HttpServlet {
       return -1;
     }
     return commentNumber;
+  }
+
+   /** Returns the nickname of the user with id, or null if the user has not set a nickname. */
+  private String getUserNickname(String id) {
+  DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+  Query query =
+        new Query("UserInfo")
+            .setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
+    PreparedQuery results = datastore.prepare(query);
+    Entity entity = results.asSingleEntity();
+    if (entity == null) {
+      return null;
+    }
+    String nickname = (String) entity.getProperty("nickname");
+    return nickname;
   }
 }

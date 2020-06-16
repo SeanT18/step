@@ -87,11 +87,13 @@ public class DataServlet extends HttpServlet {
       String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
       response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a> first.</p>");
   }
+
 }
   /** 
   * TODO: There is a bug where nickname is reset to null after submitting comment. 
   * Somewhere the nickname is being overwritten to null and I suspect to be here.
   **/
+
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 

@@ -49,19 +49,19 @@ function createMap() {
     {center: {lat: 35.2271, lng: -80.8431}, zoom: 10});
 
     var features = [
-      trexMarker = new google.maps.Marker({
+      new google.maps.Marker({
           position: {lat: 35.235661, lng: -80.903183},
           map: map,
           title: 'My High School'
   }),
 
-      hibachiSpot = new google.maps.Marker({
+      new google.maps.Marker({
           position: {lat: 35.190220, lng: -80.921910},
           map: map,
           title: 'This where I had lunch last week'
   }),
 
-      bossyBeulah = new google.maps.Marker({
+       new google.maps.Marker({
           position: {lat: 35.233580, lng: -80.876500},
           map: map,
           title: 'Best place to have chicken sandwiches in Charlotte also conviently 5 mins near me XD'
@@ -72,7 +72,6 @@ function createMap() {
       (function(x) {
         features[i].addListener('click', function() {
             map.setZoom(15);
-            console.log(x);
             map.setCenter(features[x].getPosition());
         });
        })(i)

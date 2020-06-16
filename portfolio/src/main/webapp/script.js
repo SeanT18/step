@@ -12,6 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//calls all functions to be loaded when starting the website
+function loadAll() {
+    userLogin();
+}
+
 /**
  * Adds a random greeting to the page.
  */

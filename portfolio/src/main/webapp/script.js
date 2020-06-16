@@ -12,6 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//calls all functions to be loaded when starting the website
+function loadAll() {
+    userLogin();
+    createMap();
+}
+
 /**
  * Adds a random greeting to the page.
  */
@@ -41,6 +47,14 @@ function deleteData() {
     promise.then(() => {
     addComments();
     });
+}
+
+
+function userLogin() {
+  fetch('/login').then(response => response.text())
+  .then((message) => {
+    document.getElementById('login-container').innerHTML = message;
+  });
 }
 
 function createMap() {
@@ -77,5 +91,3 @@ function createMap() {
        })(i)
   }
 }
-
-

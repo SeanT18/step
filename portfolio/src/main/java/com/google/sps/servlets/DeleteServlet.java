@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/delete-data")
 public class DeleteServlet extends HttpServlet {
 
+  // grabs keys of all entities and deletes them
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();

@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 
 @WebServlet("/login")
 public class AuthenticationServlet extends HttpServlet {
-
+  // requests the user to login and to choose a nickname if they haven't already
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html");
@@ -48,7 +48,6 @@ public class AuthenticationServlet extends HttpServlet {
   // If user has not set a nickname, redirect to nickname page
     String nickname = getUserNickname(userService.getCurrentUser().getUserId());
     if (nickname == null) {
-       // System.out.println("authentication servlet name null = " + nickname);
       response.sendRedirect("/nickname.html");
       return;
     }  
